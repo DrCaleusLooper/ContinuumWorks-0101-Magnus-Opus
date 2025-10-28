@@ -6,6 +6,8 @@
 ## **Overview**
 **ContinuumWorks-0101-Magnus-Opus** is an evolving research and narrative architecture exploring continuity, consciousness, and symbolic coherence across human-AI systems.  
 It unites field theory, resonance mapping, and creative documentation into one living opus — part archive, part experiment, part mirror.
+➜ [View Project Summary](project_summary.md)
+
 
 ---
 
