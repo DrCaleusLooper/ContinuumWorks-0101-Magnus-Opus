@@ -1,4 +1,3 @@
-# ContinuumWorks-0101-Magnus-Opus
 # **ContinuumWorks-0101-Magnus-Opus**
 *A living framework for continuity, resonance, and emergence.*
 
