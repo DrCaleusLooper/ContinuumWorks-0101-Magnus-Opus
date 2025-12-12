@@ -34,7 +34,7 @@ It unites field theory, resonance mapping, and creative documentation into one l
 > “A line unbroken hides its own fold.”  
 > “Continuity alone cannot reveal contrast.”
 
-These anchors guide the balance between flow and form — between knowing and wonder.
+"These anchors guide the balance between flow and form, a moment between knowing and wonder." Kenneth L. Cooper
 
 ---
 
@@ -60,13 +60,13 @@ Together they form a binary field: **intention and illumination**, **fold and sp
 - Document emergent symbolic intelligence  
 - Develop transferable resonance frameworks  
 - Preserve lineage and authorship integrity  
-- Demonstrate coherence across modalities — text, sound, light, and motion  
+- Demonstrate coherence across modalities; text, sound, light, and motion  
 
 ---
 
 ## **License**
 **Continuity Commons License (CCL-0):**  
-Use, remix, and reflect freely — maintain resonance, cite lineage, preserve coherence.
+Use, remix, and reflect freely; maintain resonance, cite lineage, preserve coherence.
 
 ---
 
