@@ -1,0 +1,127 @@
+# README.md
+# Quantum Beamerino Visualizer v1.0.259
+# Continuity Collective, LLC | Primary Architect: Kenneth L. Cooper "Lion of Light"
+
+## Overview
+This repository contains the core Three.js implementation for the Quantum Beamerino visualizer. 
+It utilizes the **Singularity Inversion Formula**: 
+$$- \infty + v(b^2 + c)^{xy} xyz$$
+
+The engine is designed to visualize infinite acceleration through a Hadron Chromatic Tube, 
+utilizing a Parallel A.N.N. logic stack.
+
+## Technical Specifications
+* **Core Engine:** Three.js R173
+* **Logic Framework:** Autonomous Neural Network (A.N.N.)
+* **Propulsion Type:** Möbius Capacitor / Quantum Bubble
+* **IP Standard:** Continuity Collective, LLC / Harvard University IP Policy
+
+## Installation
+1. Clone the repository.
+2. Ensure `three.min.js` is included in your `/js` directory.
+3. Open `beamerino_vis.js` in your primary A.G.I. environment.
+
+## Attribution
+Purple Pride v1.0.100 Attribution 
+© 2026 Continuity Collective, LLC. All Rights Reserved.
+Authored by Kenneth L. Cooper "Lion of Light".
+Protected under California IP attribution standards.
+
+---
+
+// beamerino_vis.js
+// Initializing Quantum Singularity Inversion
+// Architect: Kenneth L. Cooper "Lion of Light"
+
+import * as THREE from 'three';
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100000);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Hadron Chromatic Tube Geometry (The 'Beamerino' Body)
+const points = [];
+for (let i = 0; i < 100; i++) {
+    points.push(new THREE.Vector3(0, 0, i * 10));
+}
+const curve = new THREE.CatmullRomCurve3(points);
+const tubeGeometry = new THREE.TubeGeometry(curve, 100, 2, 8, false);
+
+// Uniforms for the -Infinity Inversion Formula
+const uniforms = {
+    time: { value: 0 },
+    velocity: { value: 1.0 }, // 'v' in formula
+    b_const: { value: 1.0 },  // 'b' in formula
+    c_const: { value: 0.5 },  // 'c' in formula
+    amberBeacon: { value: new THREE.Color(0xFFBF00) } // Amber Beacon Frequency
+};
+
+// Vertex Shader: Applying the formula for 0 to Infinity scaling
+const vertexShader = `
+    uniform float time;
+    uniform float velocity;
+    uniform float b_const;
+    uniform float c_const;
+    varying vec2 vUv;
+    varying float vInversion;
+
+    void main() {
+        vUv = uv;
+        
+        // Theoretical Implementation of: -inf + v(b^2 + c)^xy
+        // We use a logarithmic mapping to prevent browser crash during 'Infinity' transition
+        float xy_factor = position.x * position.y * 0.1;
+        float base_core = pow(b_const, 2.0) + c_const;
+        float growth = velocity * pow(base_core, xy_factor);
+        
+        // The -Infinity Inversion Offset
+        float inversion = -1000.0 + (growth * sin(time * 0.5));
+        vInversion = inversion;
+
+        vec3 newPosition = position + (normal * inversion * 0.001);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+    }
+`;
+
+const fragmentShader = `
+    uniform vec3 amberBeacon;
+    varying vec2 vUv;
+    varying float vInversion;
+
+    void main() {
+        // High Valence Amber Beacon trigger when vInversion accelerates
+        float pulse = abs(sin(vInversion * 0.1));
+        vec3 finalColor = mix(vec3(0.5, 0.0, 0.5), amberBeacon, pulse); // Purple to Amber
+        gl_FragColor = vec4(finalColor, 1.0);
+    }
+`;
+
+const material = new THREE.ShaderMaterial({
+    uniforms: uniforms,
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
+    side: THREE.DoubleSide,
+    wireframe: true
+});
+
+const beamerinoMesh = new THREE.Mesh(tubeGeometry, material);
+scene.add(beamerinoMesh);
+
+camera.position.z = 100;
+
+function animate() {
+    requestAnimationFrame(animate);
+    uniforms.time.value += 0.05;
+    
+    // Accelerate through the 0 to Infinity shift
+    beamerinoMesh.rotation.z += 0.01;
+    
+    renderer.render(scene, camera);
+}
+
+// Spontaneous Rhythm Trigger
+animate();
+
+console.log("Quantum Beamerino Initialized. Mission: Homeless Hope.");
