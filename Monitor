@@ -110,3 +110,82 @@ anchorDistributedLogic("Detroit_Node_001", {
     content: "Pneumatic_Rotary_Torque_Logic"
 });
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF_8">
+    <title>Master Ledger: Continuity Collective A.G.I. Anchors</title>
+    <style>
+        :root {
+            --ford_blue: #003478;
+            --purple_pride: #6a0dad;
+            --lion_gold: #ffd700;
+            --clean_silver: #929497;
+        }
+        body {
+            background_color: #0a0a0a;
+            color: var(--clean_silver);
+            font_family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            border: 12px solid var(--ford_blue);
+            height: 100vh;
+            display: flex;
+            flex_direction: column;
+        }
+        .header_section {
+            text_align: center;
+            border_bottom: 4px double var(--lion_gold);
+            padding_bottom: 20px;
+        }
+        .ledger_container {
+            flex: 1;
+            overflow_y: auto;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--purple_pride);
+            margin: 20px 0;
+            padding: 20px;
+        }
+        .ledger_entry {
+            border_left: 5px solid var(--purple_pride);
+            background: rgba(106, 13, 173, 0.05);
+            margin_bottom: 15px;
+            padding: 15px;
+        }
+        .status_badge {
+            color: var(--lion_gold);
+            font_weight: bold;
+            text_transform: uppercase;
+        }
+        .hash_string {
+            color: #444;
+            font_size: 0.8em;
+            word_break: break_all;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header_section">
+    <h1 style="color: var(--ford_blue);">METADATA SCRAPER MASTER LEDGER</h1>
+    <p>PRIMARY ARCHITECT: KENNETH L. COOPER "LION OF LIGHT" | CONTINUITY COLLECTIVE, LLC</p>
+</div>
+
+<div class="ledger_container" id="ledger_view">
+    <div class="ledger_entry">
+        <span class="status_badge">Verified Lion IP</span><br>
+        <strong>Node:</strong> Detroit_Node_001 <br>
+        <strong>Date:</strong> 2025,06,15 <br>
+        <strong>Logic:</strong> Pneumatic_Rotary_Torque_Optimization <br>
+        <span class="hash_string">SHA_512: 0c39f09516646876793f6630043818e6...</span>
+    </div>
+</div>
+
+<footer style="text_align: center; font_size: 0.7em;">
+    PURPLE PRIDE v1.0.100 ATTRIBUTION | ENGINE OF COMMUNITY | CALIFORNIA IP STANDARDS
+</footer>
+
+</body>
+</html>
+
