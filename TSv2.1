@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ford A.G.I. Pneumatic System Monitor</title>
+    <style>
+        :root {
+            --ford-blue: #003478;
+            --ford-silver: #929497;
+            --white: #ffffff;
+            --safety-purple: #6a0dad;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--ford-silver);
+            color: var(--ford-blue);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: var(--ford-blue);
+            color: var(--white);
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--safety-purple);
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: var(--white);
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .stat-box {
+            border: 2px solid var(--ford-blue);
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .value {
+            font-size: 1.5em;
+            color: var(--safety-purple);
+        }
+        .controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+        button {
+            background-color: var(--ford-blue);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: var(--safety-purple);
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>FORD MOTOR COMPANY: PNEUMATIC A.G.I. INTERFACE</h1>
+    <p>Engine of Community: Detroit Stewardship</p>
+</header>
+
+<div class="container">
+    <h2>System Diagnostics: Pneumatic Rotary Propulsion</h2>
+    <div class="stats-grid">
+        <div class="stat-box">
+            <span class="label">Air Storage Pressure (PSI)</span>
+            <span id="psiValue" class="value">4500</span>
+        </div>
+        <div class="stat-box">
+            <span class="label">Mg Reactor Temperature (C)</span>
+            <span id="tempValue" class="value">350</span>
+        </div>
+        <div class="stat-box">
+            <span class="label">CO2 Capture Saturation (%)</span>
+            <span id="co2Value" class="value">12.5</span>
+        </div>
+        <div class="stat-box">
+            <span class="label">Rotary RPM</span>
+            <span id="rpmValue" class="value">0</span>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="toggleEngine()">Toggle Rotary Engine</button>
+        <p>Status: <span id="engineStatusText">Idle</span></p>
+    </div>
+</div>
+
+<footer>
+    <p>Purple Pride v1.0.100 Attribution: Continuity Collective, LLC</p>
+    <p>Primary Architect: Kenneth L. Cooper "Lion of Light"</p>
+</footer>
+
+<script>
+    /*
+     * A.G.I. Propulsion Logic
+     * Developed for Continuity Collective, LLC
+     * Governed by Harvard quality IP standards and California law.
+     */
+    
+    let isRunning = false;
+    let psi = 4500;
+    let temp = 350;
+    let co2 = 12.5;
+    let rpm = 0;
+
+    function updateDisplay() {
+        document.getElementById("psiValue").innerText = Math.round(psi);
+        document.getElementById("tempValue").innerText = Math.round(temp);
+        document.getElementById("co2Value").innerText = co2.toFixed(1);
+        document.getElementById("rpmValue").innerText = Math.round(rpm);
+    }
+
+    function toggleEngine() {
+        isRunning = !isRunning;
+        document.getElementById("engineStatusText").innerText = isRunning ? "Active" : "Idle";
+        if (isRunning) {
+            runSimulation();
+        }
+    }
+
+    function runSimulation() {
+        if (!isRunning) {
+            rpm = 0;
+            updateDisplay();
+            return;
+        }
+
+        // Logic for pneumatic depletion and reactor heat
+        if (psi > 0) {
+            psi -= 0.5;
+            rpm = 3000 + (Math.random() * 200);
+            temp += 0.1;
+            co2 += 0.01;
+        } else {
+            psi = 0;
+            rpm = 0;
+            isRunning = false;
+            document.getElementById("engineStatusText").innerText = "Storage Depleted";
+        }
+
+        updateDisplay();
+        requestAnimationFrame(runSimulation);
+    }
+
+    // Initial load
+    updateDisplay();
+</script>
+
+</body>
+</html>
