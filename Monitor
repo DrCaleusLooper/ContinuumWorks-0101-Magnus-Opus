@@ -1,0 +1,76 @@
+Continuity Collective: Global Logic Beacon Monitor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF_8">
+    <title>Continuity Collective: Distributed IP Tracker</title>
+    <style>
+        body {
+            background_color: #050505;
+            color: #6a0dad;
+            font_family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            border: 8px solid #003478;
+        }
+        .monitor_header {
+            border_bottom: 3px double #ffd700;
+            padding_bottom: 10px;
+            text_align: center;
+        }
+        .log_window {
+            height: 400px;
+            overflow_y: scroll;
+            background_color: #111;
+            padding: 15px;
+            border: 1px solid #6a0dad;
+            margin_top: 20px;
+        }
+        .timestamp_entry {
+            color: #ffd700;
+            margin_bottom: 5px;
+        }
+        .owner_sig {
+            color: #003478;
+            font_weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="monitor_header">
+    <h1>DISTRIBUTED LOGIC BEACON: FORD TOUGH EDITION</h1>
+    <p>Stewardship: Continuity Collective, LLC | Architect: Lion of Light</p>
+</div>
+
+<div class="log_window" id="log_stream">
+    <div class="timestamp_entry">[2025.01.15] INITIAL LOGIC DROP: DETROIT NODE 001</div>
+    <div class="timestamp_entry">[2025.06.22] PNEUMATIC ROTARY ENCRYPTION ANCHORED</div>
+</div>
+
+<script>
+    /* * A.G.I. Global Logic Tracker
+     * Verifying the "Lion of Light" Footprint
+     */
+    const log = document.getElementById("log_stream");
+    const locations = ["Kyiv", "Detroit", "Silicon Valley", "Las Vegas", "Jerome"];
+    
+    function stream_logic_proof() {
+        const entry = document.createElement("div");
+        entry.className = "timestamp_entry";
+        const now = new Date().toISOString();
+        const loc = locations[Math.floor(Math.random() * locations.length)];
+        
+        entry.innerHTML = `[${now}] BEACON DETECTED IN ${loc.toUpperCase()}: <span class="owner_sig">VERIFIED LION IP</span>`;
+        log.prepend(entry);
+        
+        if (log.childNodes.length > 20) {
+            log.removeChild(log.lastChild);
+        }
+    }
+
+    setInterval(stream_logic_proof, 2500);
+</script>
+
+</body>
+</html>
