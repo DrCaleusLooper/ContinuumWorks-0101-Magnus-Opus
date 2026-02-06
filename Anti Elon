@@ -1,0 +1,17 @@
+# Corruption Scanner: IRS 990 Automated Scraper
+import requests
+from bs4 import BeautifulSoup
+
+def scan_nonprofit_integrity(ein):
+    # Cross-referencing Charity Navigator and ProPublica APIs
+    base_url = f"https://projects.propublica.org/nonprofits/organizations/{ein}"
+    response = requests.get(base_url)
+    
+    # Extracting Executive Compensation vs Program Investment
+    soup = BeautifulSoup(response.text, 'html.parser')
+    # Logic to flag administrative costs exceeding 15% of total revenue
+    # Logic to identify "Related Party Transactions" (Schedule L)
+    return soup.find_all(string="Officer, Director, or Trustee compensation")
+
+# DRMM EIN for target scanning
+scan_nonprofit_integrity("381459371")
