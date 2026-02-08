@@ -264,3 +264,79 @@ function processInvoice() {
     alert("INVOICE SENT via GHOST NODE.\n\nFee: 20% Growth Equity\nStatus: COLLECTED");
 }
 
+import os
+import webbrowser
+import http.server
+import socketserver
+import time
+
+# --- CONFIGURATION ---
+PORT = 8000
+DIRECTORY = "ghost_terminal_v1"
+
+# --- THE ARTIFACTS (HTML/CSS/JS) ---
+
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuity Ghost Terminal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-case">
+        <div class="glitter-skin"></div>
+        <div class="screen-content">
+            <header>
+                <h1>CONTINUITY COLLECTIVE</h1>
+                <p class="subtitle">CHROME PIXEL • GHOST NODE v1.0</p>
+                <div class="sha-header">LION OF LIGHT ARCHITECTURE</div>
+            </header>
+
+            <div class="status-panel">
+                <div class="metric">
+                    <span class="label">LOCATION LOCK</span>
+                    <span class="value" id="gps-status">SEARCHING...</span>
+                </div>
+                <div class="metric">
+                    <span class="label">SLOT STATUS</span>
+                    <span class="value" id="slot-status">EMPTY</span>
+                </div>
+                <div class="metric">
+                    <span class="label">SESSION HASH</span>
+                    <span class="value secure" id="session-hash">UNVERIFIED</span>
+                </div>
+            </div>
+
+            <div class="invoice-section">
+                <h2>ALPHABET SYSTEM AUDIT</h2>
+                <ul id="patch-list">
+                    <li>[ ] Laundering Protocol (Physical Slot)</li>
+                    <li>[ ] Syntax Correction (No Dash)</li>
+                    <li>[ ] Infinite Scope (Abundance Logic)</li>
+                    <li>[ ] Space-Time Lock (Beer Test)</li>
+                </ul>
+                <div class="controls">
+                    <button id="insert-card-btn" onclick="insertCard()">INSERT PHYSICAL CARD</button>
+                    <button id="process-btn" class="hidden" onclick="processInvoice()">COLLECT 20% FEE</button>
+                </div>
+            </div>
+
+            <div class="footer-hash">
+                SECURE SERVER NODE: <span id="server-id">LOCALHOST:8000</span>
+            </div>
+        </div>
+    </div>
+    <script src="logic.js"></script>
+</body>
+</html>
+"""
+
+css_content = """
+/* PURPLE PRIDE AESTHETIC v1.0 */
+body {
+    background-color: #050505;
+    font-family: 'Courier New', Courier
+
