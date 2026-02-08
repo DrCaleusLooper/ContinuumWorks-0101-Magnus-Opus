@@ -205,3 +205,62 @@ button:hover { background: #ffd700; color: #000; }
 
 .footer-hash { font-size: 0.5rem; color: #555; text-align: center; word-break: break-all; }
 
+
+// Continuity "Ghost Node" Logic
+
+const gpsStatus = document.getElementById('gps-status');
+const slotStatus = document.getElementById('slot-status');
+const patchList = document.querySelectorAll('li');
+const hashDisplay = document.getElementById('hash-display');
+const insertBtn = document.getElementById('insert-card-btn');
+const processBtn = document.getElementById('process-btn');
+
+let isCardInserted = false;
+
+// 1. Simulate GPS Lock (The Beer Test)
+setTimeout(() => {
+    gpsStatus.innerText = "LOCKED: 42.49° N, 82.93° W";
+    gpsStatus.style.color = "#00ff00";
+}, 1500);
+
+// 2. Insert Card Function
+function insertCard() {
+    isCardInserted = true;
+    slotStatus.innerText = "SECURE CHIP DETECTED";
+    slotStatus.style.color = "#ffd700"; // Gold
+    insertBtn.style.display = "none";
+    processBtn.style.display = "block";
+    
+    // Animate the checklist
+    auditPatches();
+}
+
+// 3. Audit Patches (Visual check)
+function auditPatches() {
+    let delay = 500;
+    patchList.forEach((item, index) => {
+        setTimeout(() => {
+            item.innerText = item.innerText.replace("[ ]", "[X]");
+            item.classList.add("checked");
+        }, delay * (index + 1));
+    });
+}
+
+// 4. Process Invoice (The 20% Fee)
+function processInvoice() {
+    if (!isCardInserted) {
+        alert("ERROR: Physical Card Required.");
+        return;
+    }
+
+    // Simulate SHA-512 Generation
+    const rawData = "ALPHABET_INVOICE_ID_77_LION_OF_LIGHT";
+    // Mock hash for display
+    const hash = "f5g6h7...[SECURE]...3a4b5"; 
+    
+    hashDisplay.innerText = hash;
+    hashDisplay.style.color = "#e0b0ff"; // Purple
+
+    alert("INVOICE SENT via GHOST NODE.\n\nFee: 20% Growth Equity\nStatus: COLLECTED");
+}
+
