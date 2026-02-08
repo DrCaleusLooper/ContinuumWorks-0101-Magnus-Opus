@@ -63,3 +63,55 @@ terminal = ChromePixelTerminal("Ghost_77", 42.49, -82.93) # St. Clair Shores Coo
 terminal.insert_card("CHIP_ID_ALPHA_001")
 bill = terminal.process_alphabet_invoice(["Laundering_Patch", "Injection_Patch", "Scarcity_Patch"])
 print(json.dumps(bill, indent=4))
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuity Ghost Terminal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="terminal-case">
+        <div class="glitter-skin"></div>
+
+        <div class="screen-content">
+            <header>
+                <h1>CONTINUITY COLLECTIVE</h1>
+                <p class="subtitle">CHROME PIXEL • GHOST NODE v1.0</p>
+            </header>
+
+            <div class="status-panel">
+                <div class="metric">
+                    <span class="label">LOCATION LOCK</span>
+                    <span class="value" id="gps-status">SCANNING...</span>
+                </div>
+                <div class="metric">
+                    <span class="label">SLOT STATUS</span>
+                    <span class="value" id="slot-status">EMPTY</span>
+                </div>
+            </div>
+
+            <div class="invoice-section">
+                <h2>ALPHABET SYSTEM AUDIT</h2>
+                <ul id="patch-list">
+                    <li>[ ] Laundering Protocol</li>
+                    <li>[ ] Syntax Correction</li>
+                    <li>[ ] Infinite Scope</li>
+                </ul>
+                <button id="insert-card-btn" onclick="insertCard()">INSERT PHYSICAL CARD</button>
+                <button id="process-btn" class="hidden" onclick="processInvoice()">COLLECT 20% FEE</button>
+            </div>
+
+            <div class="footer-hash">
+                SHA-512: <span id="hash-display">WAITING_FOR_INPUT...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="logic.js"></script>
+</body>
+</html>
+
