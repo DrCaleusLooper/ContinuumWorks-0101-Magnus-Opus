@@ -98,3 +98,116 @@ class GhostSignal {
         }
     }
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ghost Drop | Secure Transfer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="ghost_wash.js"></script>
+    <script src="ghost_signal.js"></script>
+    <style>
+        body { background: #05000a; color: #d8b4fe; font-family: 'Courier New', monospace; overflow: hidden; }
+        .ourple-box { border: 1px solid #7c3aed; box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); background: rgba(10, 0, 20, 0.9); }
+        .scan-line { width: 100%; height: 2px; background: #a855f7; animation: scan 3s linear infinite; opacity: 0.5; }
+        @keyframes scan { 0% { transform: translateY(0); } 100% { transform: translateY(400px); } }
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center h-screen">
+
+    <div class="ourple-box w-full max-w-2xl p-6 rounded-xl relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none"><div class="scan-line"></div></div>
+        
+        <h1 class="text-3xl font-bold text-center mb-2 tracking-widest text-purple-400">GHOST DROP</h1>
+        <div class="text-center text-xs text-purple-600 mb-6">P2P ENCRYPTED TUNNEL // NO LOGS</div>
+
+        <div id="signal-ui" class="space-y-4">
+            <div class="flex gap-2">
+                <button onclick="startHost()" class="flex-1 bg-purple-900 hover:bg-purple-700 p-3 rounded border border-purple-500">CREATE ROOM</button>
+                <button onclick="startJoin()" class="flex-1 bg-gray-900 hover:bg-gray-800 p-3 rounded border border-gray-600">JOIN ROOM</button>
+            </div>
+            <textarea id="signal-box" class="w-full h-24 bg-black border border-purple-800 p-2 text-xs text-green-400" placeholder="Paste Ghost Code Here..."></textarea>
+            <button onclick="processSignal()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold p-2 rounded">CONNECT</button>
+        </div>
+
+        <div id="transfer-ui" class="hidden text-center space-y-6">
+            <div class="border-2 border-dashed border-purple-500 p-8 rounded cursor-pointer hover:bg-purple-900/20" onclick="document.getElementById('fileInput').click()">
+                <div class="text-4xl mb-2">👻</div>
+                <div>CLICK TO SELECT FILE</div>
+                <div class="text-xs text-purple-400 mt-2">(METADATA WILL BE SCRUBBED)</div>
+            </div>
+            <input type="file" id="fileInput" class="hidden" onchange="handleFile(this.files[0])">
+            <div id="status" class="text-green-400 text-sm font-bold animate-pulse">WAITING FOR INPUT...</div>
+        </div>
+
+    </div>
+
+    <script>
+        const washer = new GhostWasher();
+        let signal;
+
+        // Initialize Keys
+        washer.generateKey("GHOST_PROTOCOL_V1");
+
+        function startHost() {
+            signal = new GhostSignal((code) => document.getElementById('signal-box').value = code);
+            signal.createRoom();
+            document.getElementById('status').innerText = "SHARE CODE WITH RECIPIENT";
+        }
+
+        function startJoin() {
+            signal = new GhostSignal((code) => document.getElementById('signal-box').value = code);
+        }
+
+        function processSignal() {
+            const code = document.getElementById('signal-box').value;
+            if (!signal.peerConnection.remoteDescription) {
+                if (code.includes("offer")) signal.joinRoom(code);
+                else signal.finalizeConnection(code);
+            }
+        }
+
+        // Connection Event
+        document.addEventListener("ghost-connected", () => {
+            document.getElementById('signal-ui').classList.add('hidden');
+            document.getElementById('transfer-ui').classList.remove('hidden');
+            document.getElementById('status').innerText = "SECURE TUNNEL ESTABLISHED";
+        });
+
+        // File Handling
+        async function handleFile(file) {
+            document.getElementById('status').innerText = "WASHING & ENCRYPTING...";
+            const packet = await washer.washAndEncrypt(file);
+            
+            // Send Metadata first, then chunks (Simplified for demo)
+            signal.send(JSON.stringify({ type: 'header', name: packet.name, iv: packet.iv }));
+            signal.send(packet.data); // Binary Blob
+            document.getElementById('status').innerText = "FILE SENT. TRACE DELETED.";
+        }
+
+        // Receiving Logic
+        let incomingHeader = null;
+        document.addEventListener("ghost-data", async (e) => {
+            if (typeof e.detail === "string") {
+                incomingHeader = JSON.parse(e.detail);
+                document.getElementById('status').innerText = "RECEIVING ENCRYPTED STREAM...";
+            } else {
+                // Decrypt Blob
+                const blob = await washer.decryptAndRestore({ 
+                    iv: incomingHeader.iv, 
+                    data: e.detail, 
+                    type: 'application/octet-stream' 
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = incomingHeader.name;
+                a.click();
+                document.getElementById('status').innerText = "DOWNLOAD COMPLETE.";
+            }
+        });
+    </script>
+</body>
+</html>
