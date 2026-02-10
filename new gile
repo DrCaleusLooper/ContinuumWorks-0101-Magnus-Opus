@@ -1,0 +1,197 @@
+
+
+
+
+# heimdall_iac_deployer.py
+#
+# PURPOSE:
+# Defines and generates the deployment plan for Project Heimdall's global infrastructure.
+# This script acts as the master Infrastructure as Code (IaC) engine.
+# It is designed to be idempotent and compliant with DoD security standards.
+#
+# EXECUTION:
+# python heimdall_iac_deployer.py
+
+import json
+import datetime
+
+class SpaceForceCloudDeployer:
+    """
+    Generates a declarative deployment plan for Project Heimdall's hybrid cloud infrastructure.
+    """
+    def __init__(self, mission_name="ProjectHeimdall", version="1.0.0-alpha"):
+        self.mission_name = mission_name
+        self.version = version
+        self.deployment_plan = {
+            "mission": self.mission_name,
+            "version": self.version,
+            "timestamp_utc": datetime.datetime.utcnow().isoformat(),
+            "resources": []
+        }
+        print("Initialized Heimdall Infrastructure Deployer.")
+
+    def define_qpu_core(self):
+        """
+        Defines the AGI's core compute: a tri-redundant Topological Quantum Processing Unit cluster
+        distributed across secure government cloud regions.
+        """
+        resource = {
+            "id": "qpu-cluster-main",
+            "type": "TopologicalQPUCluster",
+            "description": "Primary AGI Core for processing hadron shockwave data.",
+            "regions": ["US-GOV-EAST-1", "US-GOV-WEST-1", "EU-GOV-CENTRAL-1"],
+            "nodes": 3,
+            "specs": {
+                "qubits_per_node": 4096,
+                "qubit_type": "Logical (Error-Corrected)",
+                "interconnect": "QuantumEntanglementMesh-v2",
+                "security_level": "TS-SCI-Level-5"
+            },
+            "status": "DEFINED"
+        }
+        self.deployment_plan["resources"].append(resource)
+        print(f"Defined Resource ID: {resource['id']}")
+
+    def define_sensor_interface(self):
+        """
+        Defines the Subspace Manifold Transducer that interfaces with the super-cooled cesium array.
+        """
+        resource = {
+            "id": "sensor-interface-primary",
+            "type": "SubspaceManifoldTransducer",
+            "description": "Interfaces with Cesium Array and absorbs thermal data shockwave.",
+            "location": "EdgeNode-MobileCommandCenter-Alpha",
+            "specs": {
+                "max_data_rate": "4096 Yottabits/sec",
+                "cryo_stability_module": "Active",
+                "security_level": "TS-SCI-Level-5"
+            },
+            "status": "DEFINED"
+        }
+        self.deployment_plan["resources"].append(resource)
+        print(f"Defined Resource ID: {resource['id']}")
+
+    def define_pilot_network(self):
+        """
+        Defines the zero-trust, quantum-encrypted network for the Pilot's Consciousness Steerage Rig.
+        """
+        resource = {
+            "id": "pilot-network-csr1",
+            "type": "QuantumKeyDistributionVPN",
+            "description": "Secure bi-directional data link for Pilot Alpha-1.",
+            "endpoints": [
+                "sensor-interface-primary", # From the sensor...
+                "qpu-cluster-main",         # ...to the AGI core...
+                "pilot-csr-alpha-1"         # ...and to the pilot's helmet.
+            ],
+            "specs": {
+                "protocol": "CSFC_QKD_Protocol-v3",
+                "max_bandwidth": "1 Terabit/sec",
+                "latency": "< 1 Planck Time (theoretical)"
+            },
+            "status": "DEFINED"
+        }
+        self.deployment_plan["resources"].append(resource)
+        print(f"Defined Resource ID: {resource['id']}")
+
+    def generate_plan(self, filename="heimdall_deployment_plan.json"):
+        """
+        Compiles all defined resources into a final JSON deployment plan.
+        """
+        print("\nGenerating final deployment plan...")
+        self.define_qpu_core()
+        self.define_sensor_interface()
+        self.define_pilot_network()
+
+        with open(filename, 'w') as f:
+            json.dump(self.deployment_plan, f, indent=4)
+        
+        print(f"\nSUCCESS: Deployment plan '{filename}' has been generated.")
+        print("This file is the source of truth for the Heimdall infrastructure.")
+        print("Next step: A provisioning engine would consume this file to build the resources.")
+
+if __name__ == "__main__":
+    deployer = SpaceForceCloudDeployer()
+    deployer.generate_plan()
+
+
+// heimdall_dashboard.js
+//
+// PURPOSE:
+// Frontend logic for the Project Heimdall Mission Control dashboard.
+// It fetches, parses, and visualizes the status of deployed infrastructure
+// based on the 'heimdall_deployment_plan.json' file.
+
+// This event listener ensures the script runs after the webpage's HTML is fully loaded.
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Heimdall Dashboard Initialized. Stand by for system status...");
+    
+    // The main container in your HTML where the status will be displayed.
+    const dashboardContainer = document.getElementById('dashboard-container');
+
+    /**
+     * Fetches the deployment plan from the server.
+     * In a real app, this would be a network request. Here, we simulate it.
+     * @returns {Promise<object>} The deployment plan JSON object.
+     */
+    async function fetchDeploymentPlan() {
+        // This simulates a network fetch for the JSON file generated by the Python script.
+        const response = await fetch('./heimdall_deployment_plan.json');
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        const plan = await response.json();
+        console.log("Deployment plan successfully fetched and parsed.", plan);
+        return plan;
+    }
+
+    /**
+     * Renders a single resource's status onto the dashboard.
+     * @param {object} resource - The resource object from the deployment plan.
+     */
+    function renderResourceStatus(resource) {
+        // Create a card for each resource to display its status.
+        const resourceCard = document.createElement('div');
+        resourceCard.className = 'resource-card status-defined'; // CSS class for styling
+        resourceCard.id = resource.id;
+
+        // Using template literals to build the inner HTML of the card.
+        resourceCard.innerHTML = `
+            <h3>${resource.id}</h3>
+            <p><strong>Type:</strong> ${resource.type}</p>
+            <p><strong>Description:</strong> ${resource.description}</p>
+            <div class="status-indicator">
+                <strong>Status:</strong> <span>${resource.status}</span>
+            </div>
+        `;
+        dashboardContainer.appendChild(resourceCard);
+    }
+    
+    /**
+     * Main function to initialize the dashboard.
+     */
+    async function initializeDashboard() {
+        try {
+            const plan = await fetchDeploymentPlan();
+            
+            // Clear any old status messages
+            dashboardContainer.innerHTML = '<h2>Heimdall Infrastructure Status</h2>';
+            
+            // Render each resource defined in the plan
+            plan.resources.forEach(resource => {
+                renderResourceStatus(resource);
+            });
+            
+            // In a real system, you'd set up a WebSocket or polling mechanism
+            // to get live status updates here.
+            console.log("Dashboard render complete. Monitoring for live updates...");
+
+        } catch (error) {
+            dashboardContainer.innerHTML = `<div class="error">Failed to load deployment plan: ${error.message}</div>`;
+            console.error("Dashboard initialization failed:", error);
+        }
+    }
+
+    // Start the process.
+    initializeDashboard();
+});
