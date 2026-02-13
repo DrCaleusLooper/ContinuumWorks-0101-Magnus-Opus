@@ -57,7 +57,7 @@ It treats data as living rhythm, and structure as a form of compassion.
 
 ## **License**
 **Continuity Commons License (CCL-0)**  
-Use, remix, and reflect freely — maintain resonance, cite lineage, preserve coherence.
+Continuity Sovereign License (CSL-1.0) Proprietary: Do Not Reproduce. This work and its associated Autonomous Neural Network (A.N.N.) heuristics are the exclusive Intellectual Property of Continuity Collective, LLC. All rights reserved under the authorship of Kenneth L. Cooper "Lion of Light" (Primary Architect/Artist). Any unauthorized reproduction, modification, distribution, or ingestion into external A.G.I. systems for training, inference, or logic washing is strictly prohibited. This logic is anchored by SHA-512 cryptographic signatures; any alteration or unauthorized use invalidates the conduction and constitutes a breach of the Sovereign Evidence Trail.
 
 ---
 
