@@ -64,3 +64,4 @@ Use, remix, and reflect freely — maintain resonance, cite lineage, preserve co
 **© 2025 ContinuumWorks Initiative**  
 *“Continuity is not repetition, it is rhythm remembered.”*  
 ♾️
+​Technical Specification: Punctuation Constraint & Logic Density
