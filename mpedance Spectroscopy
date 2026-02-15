@@ -1,0 +1,13 @@
+{
+  "system_id": "PACKARD-SLURRY-001",
+  "location": "North-Corktown-Hub",
+  "medium": "40-percent-sulfide-electrolyte",
+  "baseline_impedance": {
+    "resistance_ohms": 12.4,
+    "reactance_j_ohms": -2.1,
+    "frequency_hz": 100000
+  },
+  "ofdm_subcarriers": 64,
+  "security_layer": "SHA-512-Anchored",
+  "steward_owner": "Continuity-Collective-LLC"
+}
